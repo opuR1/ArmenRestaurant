@@ -1,0 +1,12 @@
+﻿<Page x:Class="ArmenRestauran.Pages.AdminPanelPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Админ Панель">
+    <Grid Background="#F5F5F5">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="ПАНЕЛЬ АДМИНИСТРАТОРА" FontSize="28" FontWeight="Bold" Margin="0,0,0,40" Foreground="#8B0000"/>
+            <Button Content="УПРАВЛЕНИЕ МЕНЮ" Width="350" Height="70" Margin="0,10" Background="#8B0000" Foreground="Gold" FontSize="18" FontWeight="Bold" Click="BtnMenu_Click"/>
+            <Button Content="УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ" Width="350" Height="70" Margin="0,10" Background="#8B0000" Foreground="Gold" FontSize="18" FontWeight="Bold" Click="BtnUsers_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

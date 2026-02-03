@@ -1,0 +1,53 @@
+﻿<Page x:Class="ArmenRestauran.Pages.RegisterPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Регистрация">
+
+    <Grid>
+        <Border Background="White" Width="400" Height="420" CornerRadius="15" 
+                VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" Direction="0" Opacity="0.15"/>
+            </Border.Effect>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="30">
+                    <TextBlock Text="РЕГИСТРАЦИЯ" Foreground="#8B0000" FontSize="20" 
+                               FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <Label Content="Имя:" Foreground="#8B0000" FontSize="11"/>
+                            <TextBox x:Name="TbxName" BorderBrush="#D4AF37"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <Label Content="Фамилия:" Foreground="#8B0000" FontSize="11"/>
+                            <TextBox x:Name="TbxLastName" BorderBrush="#D4AF37"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Label Content="Отчество (необяз.):" Foreground="#8B0000" FontSize="11" Margin="0,5,0,0"/>
+                    <TextBox x:Name="TbxSurName" BorderBrush="#D4AF37"/>
+
+                    <Label Content="Телефон:" Foreground="#8B0000" FontSize="11" Margin="0,5,0,0"/>
+                    <TextBox x:Name="TbxPhone" BorderBrush="#D4AF37"/>
+
+                    <Label Content="Логин:" Foreground="#8B0000" FontSize="11" Margin="0,5,0,0"/>
+                    <TextBox x:Name="TbxLogin" BorderBrush="#D4AF37"/>
+
+                    <Label Content="Пароль:" Foreground="#8B0000" FontSize="11" Margin="0,5,0,0"/>
+                    <PasswordBox x:Name="PbxPassword" BorderBrush="#D4AF37"/>
+
+                    <Button Content="ЗАРЕГИСТРИРОВАТЬСЯ" Height="35" Margin="0,20,0,0"
+                            Background="#8B0000" Foreground="Gold" FontWeight="Bold" 
+                            BorderThickness="0" Click="BtnRegister_Click"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Page>

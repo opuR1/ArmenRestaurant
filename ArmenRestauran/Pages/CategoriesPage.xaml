@@ -1,0 +1,36 @@
+﻿<Page x:Class="ArmenRestauran.Pages.CategoriesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Выбор категории" Loaded="Page_Loaded">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="НАШЕ МЕНЮ" FontSize="22" FontWeight="Bold" 
+                   Foreground="#8B0000" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+        <ListBox x:Name="LBoxCategories" Grid.Row="1" Background="Transparent" BorderThickness="0"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 SelectionChanged="LBoxCategories_SelectionChanged">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="White" Width="180" Height="100" Margin="10" CornerRadius="10" 
+                            BorderBrush="#D4AF37" BorderThickness="2">
+                        <TextBlock Text="{Binding CategoryName}" VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center" FontSize="18" 
+                                   FontWeight="SemiBold" Foreground="#8B0000"/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Page>

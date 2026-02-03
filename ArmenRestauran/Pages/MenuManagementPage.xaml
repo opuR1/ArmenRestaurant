@@ -1,0 +1,55 @@
+﻿<Page x:Class="ArmenRestauran.Pages.MenuManagementPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Управление меню" Loaded="Page_Loaded">
+    <Grid Background="#F5F5F5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="White" Margin="10" CornerRadius="10">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="КАТЕГОРИИ" Margin="10" FontWeight="Bold" Foreground="#8B0000" HorizontalAlignment="Center"/>
+                <ListBox x:Name="LBoxCategories" BorderThickness="0" DisplayMemberPath="CategoryName" SelectionChanged="Category_Selected"/>
+            </DockPanel>
+        </Border>
+
+        <Grid Grid.Column="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="TblCategoryTitle" Grid.Row="0" Text="Выберите категорию" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <DataGrid x:Name="DGridMenu" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" Background="White">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Название" Binding="{Binding ItemName}" Width="*"/>
+                    <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} ₽}" Width="100"/>
+
+                    <DataGridTemplateColumn Width="150" Header="Действия">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Удалить" Click="BtnDelete_Click" 
+                                            Tag="{Binding ItemID}" Background="#FF4444" 
+                                            Foreground="White" Padding="5,2" Margin="5,0"/>
+                                    <Button Content="Изменить" Click="BtnEdit_Click" 
+                                            Tag="{Binding ItemID}" Background="#FF4444" 
+                                            Foreground="White" Padding="5,2" Margin="5,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                <Button Content="НАЗАД" Click="BtnBack_Click" Width="100" Height="35" Margin="0,0,10,0"/>
+                <Button Content="ДОБАВИТЬ БЛЮДО" Click="BtnAdd_Click" Width="180" Height="35" Background="#8B0000" Foreground="Gold" FontWeight="Bold"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

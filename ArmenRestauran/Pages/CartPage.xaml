@@ -1,0 +1,79 @@
+﻿<Page x:Class="ArmenRestauran.Pages.CartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      Title="Корзина" Loaded="Page_Loaded">
+
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox x:Name="LBoxCart" Grid.Column="0" Background="Transparent" BorderThickness="0" Margin="0,0,10,0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="White" Margin="0,5" CornerRadius="8" Padding="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Product.ItemName}" FontWeight="Bold" Foreground="#8B0000"/>
+                                <TextBlock Text="{Binding Total, StringFormat={}{0} ₽}" Foreground="Gray"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button Content="-" Click="BtnMinus_Click" Tag="{Binding}" Width="25" Background="#F5F5DC"/>
+                                <TextBlock Text="{Binding Quantity}" Margin="10,0" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <Button Content="+" Click="BtnPlus_Click" Tag="{Binding}" Width="25" Background="#F5F5DC"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Border Grid.Column="1" Background="White" CornerRadius="12" Padding="15">
+            <StackPanel>
+                <TextBlock Text="ОФОРМЛЕНИЕ" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                <Label Content="Дата бронирования:"/>
+                <DatePicker x:Name="DpOrderDate" Margin="0,0,0,10" SelectedDateChanged="Date_Changed"/>
+
+                <Label Content="Время:"/>
+                <ComboBox x:Name="CbOrderTime" Margin="0,0,0,10" >
+                    <sys:String>10:00</sys:String>
+                    <sys:String>11:00</sys:String>
+                    <sys:String>12:00</sys:String>
+                    <sys:String>13:00</sys:String>
+                    <sys:String>14:00</sys:String>
+                    <sys:String>15:00</sys:String>
+                    <sys:String>16:00</sys:String>
+                    <sys:String>17:00</sys:String>
+                    <sys:String>18:00</sys:String>
+                    <sys:String>19:00</sys:String>
+                    <sys:String>20:00</sys:String>
+                    <sys:String>21:00</sys:String>
+                </ComboBox>
+
+                <Label Content="Доступные столы:"/>
+                <ComboBox x:Name="CbTables" DisplayMemberPath="TableNumber" SelectedValuePath="TableID" Margin="0,0,0,20"/>
+
+                <Label Content="Количество гостей:"/>
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Slider x:Name="SldGuests" Minimum="1" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Text="{Binding ElementName=SldGuests, Path=Value}" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
+
+                <TextBlock x:Name="TblTotalSum" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,0,20"/>
+
+                <Button Content="ЗАКАЗАТЬ" Background="#8B0000" Foreground="Gold" Height="40" FontWeight="Bold" Click="BtnOrder_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
