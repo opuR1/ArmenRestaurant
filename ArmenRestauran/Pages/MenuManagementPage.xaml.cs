@@ -64,13 +64,14 @@ namespace ArmenRestauran.Pages
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (LBoxCategories.SelectedItem == null)
+            if (LBoxCategories.SelectedItem is Category selected)
             {
-                MessageBox.Show("Сначала выберите категорию!");
-                return;
+                NavigationService.Navigate(new MenuEditPage(null, selected.CategoryID));
             }
-            // Здесь можно открыть окно или страницу добавления ProductEditPage
-            // NavigationService.Navigate(new ProductEditPage(null, (LBoxCategories.SelectedItem as Category).CategoryID));
+            else
+            {
+                MessageBox.Show("Сначала выберите категорию слева!");
+            }
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e) => NavigationService.Navigate(new AdminPanelPage());

@@ -26,5 +26,6 @@ namespace ArmenRestauran.Pages
         }
         private void BtnMenu_Click(object sender, RoutedEventArgs e) => NavigationService.Navigate(new MenuManagementPage());
         private void BtnUsers_Click(object sender, RoutedEventArgs e) => NavigationService.Navigate(new UserManagementPage());
+        private void BtnIngredients_Click(object sender, RoutedEventArgs e) => NavigationService.Navigate(new IngredientsManagementPage());
     }
 }

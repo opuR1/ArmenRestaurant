@@ -14,22 +14,35 @@ namespace ArmenRestauran.Pages
         private ObservableCollection<RecipeDetailDTO> _recipeItems;
         private ModelMenuItem _item;
         private DatabaseService _db = new DatabaseService();
-
-        public MenuEditPage(ModelMenuItem selectedItem)
+        private bool _isNew = false;
+        public MenuEditPage(ModelMenuItem selectedItem, int categoryId = 0)
         {
             InitializeComponent();
-            _item = selectedItem;
+
+            if (selectedItem == null)
+            {
+                _isNew = true;
+                _item = new ModelMenuItem { CategoryID = categoryId, Price = 0 };
+            }
+            else
+            {
+                _item = selectedItem;
+            }
 
             TBoxName.Text = _item.ItemName;
             TBoxPrice.Text = _item.Price.ToString();
+            TBoxDesc.Text = _item.Description;
 
             CbIngredients.ItemsSource = _db.GetIngredients();
 
             RefreshRecipe();
+
+            DGridRecipe.IsEnabled = !_isNew;
         }
 
         private void RefreshRecipe()
         {
+            if (_isNew) return;
             var list = _db.GetRecipeDetails(_item.ItemID);
             _recipeItems = new ObservableCollection<RecipeDetailDTO>(list);
             DGridRecipe.ItemsSource = _recipeItems;
@@ -46,9 +59,19 @@ namespace ArmenRestauran.Pages
                     _item.Price = price;
                 else
                     throw new Exception("Введите корректную цену!");
-
-                _db.UpdateMenuItem(_item);
-                MessageBox.Show("Изменения сохранены");
+                
+                if (_isNew)
+                {
+                    _item.ItemID = _db.AddMenuItem(_item);
+                    _isNew = false;
+                    DGridRecipe.IsEnabled = true;
+                    MessageBox.Show("Блюдо создано! Теперь вы можете добавить ингредиенты.");
+                }
+                else
+                {
+                    _db.UpdateMenuItem(_item);
+                    MessageBox.Show("Данные блюда обновлены");
+                }
                 NavigationService.GoBack();
             }
             catch (Exception ex)

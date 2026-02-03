@@ -324,5 +324,33 @@ namespace ArmenRestauran.Services
             db.Execute(sql, item);
         }
 
+        public void AddIngredient(Ingredient ingredient)
+        {
+            using var db = CreateConnection();
+            const string sql = "INSERT INTO Ingredients (IngredientName, StockQuantity, Unit) VALUES (@IngredientName, @StockQuantity, @Unit)";
+            db.Execute(sql, ingredient);
+        }
+
+        public void UpdateIngredient(Ingredient ingredient)
+        {
+            using var db = CreateConnection();
+            const string sql = "UPDATE Ingredients SET IngredientName = @IngredientName, StockQuantity = @StockQuantity, Unit = @Unit WHERE IngredientID = @IngredientID";
+            db.Execute(sql, ingredient);
+        }
+
+        public void DeleteIngredient(int id)
+        {
+            using var db = CreateConnection();
+            db.Execute("DELETE FROM Ingredients WHERE IngredientID = @id", new { id });
+        }
+        public int AddMenuItem(MenuItem item)
+        {
+            using var db = CreateConnection();
+            const string sql = @"
+                INSERT INTO Menu (ItemName, Price, Description, CategoryID) 
+                VALUES (@ItemName, @Price, @Description, @CategoryID) 
+                RETURNING ItemID";
+            return db.QuerySingle<int>(sql, item);
+        }
     }
 }
