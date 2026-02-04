@@ -20,4 +20,14 @@ namespace ArmenRestauran.Models
         [Required]
         public decimal Subtotal { get; set; }
     }
+
+    public class OrderItemDetailDTO
+    {
+        public int OrderItemID { get; set; }
+        public int ItemID { get; set; }
+        public string ItemName { get; set; }
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
+        public decimal Subtotal { get; set; }
+    }
 }

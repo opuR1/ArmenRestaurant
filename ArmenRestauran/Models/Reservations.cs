@@ -25,4 +25,5 @@ namespace ArmenRestauran.Models
         [Required]
         public string Status { get; set; } = "Новое";
     }
+
 }

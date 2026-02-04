@@ -14,6 +14,8 @@
             <ComboBox x:Name="CbRoleFilter" Width="150" SelectionChanged="FilterChanged">
                 <ComboBoxItem Content="Все"/>
                 <ComboBoxItem Content="Администратор"/>
+                <ComboBoxItem Content="Менеджер"/>
+                <ComboBoxItem Content="Официант"/>
                 <ComboBoxItem Content="Клиент"/>
             </ComboBox>
             <Button Content="Назад" Margin="50,0,0,0" Width="100" Click="BtnBack_Click"/>

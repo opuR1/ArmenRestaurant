@@ -20,4 +20,7 @@ namespace ArmenRestauran.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
+
+
+    
 }

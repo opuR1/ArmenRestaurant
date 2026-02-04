@@ -17,6 +17,8 @@
                         <MenuItem x:Name="MiCategories" Header="Категории" Foreground="#8B0000"/>
                         <Separator/>
                         <MenuItem x:Name="AdminPanel" Header="Админ панель" Click="MenuAdmin_Click" Foreground="#8B0000" Visibility="Collapsed"/>
+                        <MenuItem x:Name="ManagerPanel" Header="Управление бронированием" Click="ManagerPanel_Click" Foreground="#8B0000" Visibility="Collapsed"/>
+                        <MenuItem x:Name="WaiterPanel" Header="Управление заказами" Click="WaiterPanel_Click" Foreground="#8B0000" Visibility="Collapsed"/>
                         <MenuItem Header="ВЫХОД" Click="MenuLogout_Click" Foreground="DarkRed" FontWeight="Bold"/>
                     </ContextMenu>
                 </Button.ContextMenu>

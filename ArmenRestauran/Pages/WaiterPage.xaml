@@ -1,0 +1,122 @@
+﻿<Page x:Class="ArmenRestauran.Pages.WaiterPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="АРАРАТСКАЯ ДОЛИНА" Loaded="Page_Loaded">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <!-- Фиксированная высота для кнопок -->
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="АРАРАТСКАЯ ДОЛИНА" FontSize="20" FontWeight="Bold" 
+                   Foreground="#8B0000" Margin="0,0,0,15" HorizontalAlignment="Center"/>
+
+        <!-- Панель управления столом -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,15">
+            <TextBlock Text="Столы:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox x:Name="CbTables" Width="150" DisplayMemberPath="TableNumber" 
+                      SelectedValuePath="TableID" SelectionChanged="CbTables_SelectionChanged"/>
+
+            <Button x:Name="BtnNewOrder" Content="Новый заказ" Margin="20,0,0,0" 
+                    Width="120" Click="BtnNewOrder_Click" Background="Green" Foreground="White"/>
+
+            <Button x:Name="BtnRefresh" Content="Обновить" Margin="10,0,0,0" 
+                    Width="100" Click="BtnRefresh_Click"/>
+        </StackPanel>
+
+        <!-- Основная область с информацией о заказе -->
+        <Border Grid.Row="2" Background="#F8F8F8" Padding="15" Margin="0,0,0,10" 
+                BorderThickness="1" BorderBrush="#CCC" CornerRadius="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Информация о заказе -->
+                <StackPanel Grid.Row="0" Margin="0,0,0,10">
+                    <TextBlock x:Name="TbTableInfo" FontWeight="Bold" FontSize="16" 
+                               Foreground="#333" Margin="0,0,0,5"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="TbOrderId" FontWeight="SemiBold" 
+                                   Foreground="Blue" Margin="0,0,15,0"/>
+                        <TextBlock x:Name="TbOrderStatus" FontWeight="SemiBold" 
+                                   Foreground="DarkGreen"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Панель добавления блюд -->
+                <Border Grid.Row="1" Background="White" Padding="10" Margin="0,0,0,10" 
+                        BorderThickness="1" BorderBrush="#DDD" CornerRadius="3">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Блюдо:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <ComboBox x:Name="CbMenu" Width="250" DisplayMemberPath="ItemName" 
+                                  SelectedValuePath="ItemID" SelectedIndex="0"/>
+                        <TextBlock Text="Кол-во:" VerticalAlignment="Center" Margin="20,0,10,0"/>
+                        <TextBox x:Name="TBoxQty" Width="60" Text="1" TextAlignment="Center" 
+                                 VerticalContentAlignment="Center"/>
+                        <Button Content="Добавить" Margin="10,0,0,0" Width="100" 
+                                Click="BtnAddItem_Click" Background="#8B0000" Foreground="White"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Список блюд (занимает всё доступное пространство) -->
+                <Border Grid.Row="2" Background="White" Padding="5" Margin="0,0,0,10" 
+                        BorderThickness="1" BorderBrush="#DDD" CornerRadius="3">
+                    <DataGrid x:Name="DGridOrderItems" AutoGenerateColumns="False" 
+                              IsReadOnly="True" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Блюдо" Binding="{Binding ItemName}" Width="*"/>
+                            <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="70"/>
+                            <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="80"/>
+                            <DataGridTextColumn Header="Итого" Binding="{Binding Subtotal}" Width="90"/>
+                            <DataGridTemplateColumn Width="60">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="X" Click="BtnRemoveItem_Click" 
+                                                Background="Red" Foreground="White" 
+                                                Padding="5,2" FontWeight="Bold"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+
+                <!-- Итоговая сумма -->
+                <Border Grid.Row="3" Background="#F0F8FF" Padding="10" 
+                        BorderThickness="1" BorderBrush="#8B0000" CornerRadius="3">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Text="ИТОГО:" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="TbTotal" FontWeight="Bold" FontSize="18" 
+                                   Foreground="#8B0000" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Кнопки управления заказом - ОТДЕЛЬНАЯ СТРОКА -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" 
+                    VerticalAlignment="Top" Margin="0,10,0,0">
+            <Button x:Name="BtnReady" Content="ГОТОВИТСЯ" Width="120" Height="35" Margin="5" 
+                    Click="BtnReady_Click" Background="Orange" Foreground="White" 
+                    FontWeight="Bold"/>
+
+            <Button x:Name="BtnServed" Content="ПОДАНО" Width="120" Height="35" Margin="5" 
+                    Click="BtnServed_Click" Background="Blue" Foreground="White" 
+                    FontWeight="Bold"/>
+
+            <Button x:Name="BtnClose" Content="ЗАКРЫТЬ ЗАКАЗ" Width="150" Height="35" Margin="5" 
+                    Click="BtnClose_Click" Background="DarkRed" Foreground="White" 
+                    FontWeight="Bold"/>
+        </StackPanel>
+    </Grid>
+</Page>

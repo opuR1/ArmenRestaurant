@@ -28,16 +28,28 @@ namespace ArmenRestauran.Pages
             InitializeComponent();
             LoadCategories();
 
-            if (AuthService.CurrentUser.RoleName == "Администратор")
+            switch (AuthService.CurrentUser.RoleName)
             {
-                ChildFrame.Navigate(new AdminPanelPage());
-                AdminPanel.Visibility = Visibility.Visible;
+                case "Администратор":
+                    ChildFrame.Navigate(new AdminPanelPage());
+                    AdminPanel.Visibility = Visibility.Visible;
+                    ManagerPanel.Visibility = Visibility.Visible;
+                    WaiterPanel.Visibility = Visibility.Visible;
+                    break;
+                case "Менеджер":
+                    ChildFrame.Navigate(new OrderManagementPage());
+                    ManagerPanel.Visibility = Visibility.Visible;
+                    WaiterPanel.Visibility = Visibility.Visible;
+                    break;
+                case "Клиент":
+                    ChildFrame.Navigate(new CategoriesPage());
+                    break;
+                case "Официант":
+                    ChildFrame.Navigate(new WaiterPage());
+                    WaiterPanel.Visibility = Visibility.Visible;
+                    break;
             }
-            else
-            {
-                ChildFrame.Navigate(new CategoriesPage());
-            }
-           
+
         }
 
         private void LoadCategories()
@@ -91,6 +103,16 @@ namespace ArmenRestauran.Pages
         private void MenuAdmin_Click(object sender, RoutedEventArgs e)
         {
             ChildFrame.Navigate(new AdminPanelPage());
+        }
+
+        private void ManagerPanel_Click(object sender, RoutedEventArgs e)
+        {
+            ChildFrame.Navigate(new OrderManagementPage());
+        }
+
+        private void WaiterPanel_Click(object sender, RoutedEventArgs e)
+        {
+            ChildFrame.Navigate(new WaiterPage());
         }
     }
 }

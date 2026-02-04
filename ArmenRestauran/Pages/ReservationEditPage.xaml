@@ -1,0 +1,68 @@
+﻿<Page x:Class="ArmenRestauran.Pages.ReservationEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ArmenRestauran.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ReservationEditPage">
+
+    <Grid Background="#F5F5F5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Margin="15">
+            <TextBlock Text="ДАННЫЕ БРОНИ" FontWeight="Bold" Foreground="#8B0000" Margin="0,0,0,10"/>
+
+            <Label Content="ID Клиента:"/>
+            <TextBox x:Name="TBoxUserId" Margin="0,0,0,10" Padding="3"/>
+
+            <Label Content="Стол:"/>
+            <ComboBox x:Name="CbTables" DisplayMemberPath="TableNumber" SelectedValuePath="TableID" Margin="0,0,0,10" Padding="3"/>
+
+            <Label Content="Дата:"/>
+            <DatePicker x:Name="DpDate" Margin="0,0,0,10"/>
+
+            <Label Content="Кол-во гостей:"/>
+            <TextBox x:Name="TBoxGuests" Margin="0,0,0,20" Padding="3"/>
+
+            <Button Content="СОХРАНИТЬ БРОНЬ" Click="BtnSave_Click" Background="DarkGreen" Foreground="White" Height="35" Margin="0,0,0,10"/>
+            <Button Content="ОТМЕНА / НАЗАД" Click="BtnBack_Click" Height="30"/>
+        </StackPanel>
+
+        <Grid Grid.Column="1" Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="СОСТАВ ЗАКАЗА (БЛЮДА)" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+                <ComboBox x:Name="CbMenu" Width="200" DisplayMemberPath="ItemName" SelectedValuePath="ItemID" Margin="0,0,10,0"/>
+                <TextBox x:Name="TBoxQty" Width="50" Text="1" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
+                <Button Content="ДОБАВИТЬ" Click="BtnAddProduct_Click" Padding="10,0"/>
+            </StackPanel>
+
+            <DataGrid x:Name="DGridOrderItems" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Блюдо" Binding="{Binding ItemName}" Width="*"/>
+                    <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}" Width="60"/>
+                    <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="80"/>
+                    <DataGridTextColumn Header="Итого" Binding="{Binding Subtotal}" Width="80"/>
+                    <DataGridTemplateColumn Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Удалить" Click="BtnRemoveProduct_Click" Background="Red" Foreground="White"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Page>
