@@ -1,4 +1,5 @@
-﻿using ArmenRestauran.Services;
+﻿using ArmenRestauran.Models;
+using ArmenRestauran.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,10 @@ namespace ArmenRestauran.Pages
             {
                 MessageBox.Show("Неверный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+        private void BtnViewMenu_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new CategoriesPage());
         }
 
         private void BtnToRegister_Click(object sender, RoutedEventArgs e)

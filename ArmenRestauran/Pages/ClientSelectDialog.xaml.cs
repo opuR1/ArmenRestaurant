@@ -66,7 +66,6 @@ namespace ArmenRestauran.Pages
 
         private void BtnNewClient_Click(object sender, RoutedEventArgs e)
         {
-            // Можно добавить функционал быстрой регистрации нового клиента
             MessageBox.Show("Для создания нового клиента воспользуйтесь регистрацией в системе");
         }
     }

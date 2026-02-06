@@ -40,11 +40,9 @@ namespace ArmenRestauran.Pages
 
         private void BtnAddToCart_Click(object sender, RoutedEventArgs e)
         {
-            // Явно указываем пространство имен вашей модели, чтобы не путать с системным MenuItem
             var button = sender as Button;
             if (button == null) return;
 
-            // Замените "Models.MenuItem" на ваше реальное пространство имен (например, ArmenRestauran.Models.MenuItem)
             var dish = button.DataContext as ArmenRestauran.Models.MenuItem;
 
             if (dish == null)
@@ -53,7 +51,6 @@ namespace ArmenRestauran.Pages
                 return;
             }
 
-            // Проверяем наличие товара в корзине
             var existing = CartService.Items.FirstOrDefault(x => x.Product.ItemID == dish.ItemID);
 
             if (existing != null)

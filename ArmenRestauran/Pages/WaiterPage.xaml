@@ -9,14 +9,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
-            <!-- Фиксированная высота для кнопок -->
         </Grid.RowDefinitions>
 
-        <!-- Заголовок -->
         <TextBlock Grid.Row="0" Text="АРАРАТСКАЯ ДОЛИНА" FontSize="20" FontWeight="Bold" 
                    Foreground="#8B0000" Margin="0,0,0,15" HorizontalAlignment="Center"/>
 
-        <!-- Панель управления столом -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,15">
             <TextBlock Text="Столы:" VerticalAlignment="Center" Margin="0,0,10,0"/>
             <ComboBox x:Name="CbTables" Width="150" DisplayMemberPath="TableNumber" 
@@ -29,7 +26,6 @@
                     Width="100" Click="BtnRefresh_Click"/>
         </StackPanel>
 
-        <!-- Основная область с информацией о заказе -->
         <Border Grid.Row="2" Background="#F8F8F8" Padding="15" Margin="0,0,0,10" 
                 BorderThickness="1" BorderBrush="#CCC" CornerRadius="5">
             <Grid>
@@ -40,7 +36,6 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Информация о заказе -->
                 <StackPanel Grid.Row="0" Margin="0,0,0,10">
                     <TextBlock x:Name="TbTableInfo" FontWeight="Bold" FontSize="16" 
                                Foreground="#333" Margin="0,0,0,5"/>
@@ -52,8 +47,7 @@
                                    Foreground="DarkGreen"/>
                     </StackPanel>
                 </StackPanel>
-
-                <!-- Панель добавления блюд -->
+                
                 <Border Grid.Row="1" Background="White" Padding="10" Margin="0,0,0,10" 
                         BorderThickness="1" BorderBrush="#DDD" CornerRadius="3">
                     <StackPanel Orientation="Horizontal">
@@ -68,7 +62,6 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Список блюд (занимает всё доступное пространство) -->
                 <Border Grid.Row="2" Background="White" Padding="5" Margin="0,0,0,10" 
                         BorderThickness="1" BorderBrush="#DDD" CornerRadius="3">
                     <DataGrid x:Name="DGridOrderItems" AutoGenerateColumns="False" 
@@ -91,7 +84,6 @@
                     </DataGrid>
                 </Border>
 
-                <!-- Итоговая сумма -->
                 <Border Grid.Row="3" Background="#F0F8FF" Padding="10" 
                         BorderThickness="1" BorderBrush="#8B0000" CornerRadius="3">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -103,7 +95,6 @@
             </Grid>
         </Border>
 
-        <!-- Кнопки управления заказом - ОТДЕЛЬНАЯ СТРОКА -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" 
                     VerticalAlignment="Top" Margin="0,10,0,0">
             <Button x:Name="BtnReady" Content="ГОТОВИТСЯ" Width="120" Height="35" Margin="5" 

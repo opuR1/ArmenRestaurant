@@ -28,7 +28,6 @@ namespace ArmenRestauran.Pages
             }
             else
             {
-                // Новое бронирование
                 _currentReservation = new Reservation
                 {
                     ReservationDate = DateTime.Now,
@@ -93,7 +92,6 @@ namespace ArmenRestauran.Pages
                 var orderItems = _db.GetOrderItemsByReservation(_currentReservation.ReservationID);
                 DGridOrderItems.ItemsSource = orderItems;
 
-                // Конвертируем в список OrderItem для редактирования
                 _orderItems = orderItems.Select(oi => new OrderItem
                 {
                     ItemID = oi.ItemID,
@@ -112,17 +110,14 @@ namespace ArmenRestauran.Pages
             {
                 if (CbMenu.SelectedItem is ModelMenuItem selectedMenu && int.TryParse(TBoxQty.Text, out int qty) && qty > 0)
                 {
-                    // Проверяем, есть ли уже такое блюдо в списке
                     var existingItem = _orderItems.FirstOrDefault(oi => oi.ItemID == selectedMenu.ItemID);
 
                     if (existingItem != null)
                     {
-                        // Увеличиваем количество
                         existingItem.Quantity += qty;
                     }
                     else
                     {
-                        // Добавляем новое блюдо
                         _orderItems.Add(new OrderItem
                         {
                             ItemID = selectedMenu.ItemID,
@@ -192,11 +187,9 @@ namespace ArmenRestauran.Pages
         {
             try
             {
-                // Валидация
                 if (!ValidateInput())
                     return;
 
-                // Создаем/обновляем объект бронирования
                 var reservation = new Reservation
                 {
                     ReservationID = _isEditMode ? _currentReservation.ReservationID : 0,
@@ -207,7 +200,6 @@ namespace ArmenRestauran.Pages
                     Status = "Подтверждена"
                 };
 
-                // Сохраняем в зависимости от режима
                 if (_isEditMode)
                 {
                     _db.UpdateReservationWithOrder(reservation, _orderItems);

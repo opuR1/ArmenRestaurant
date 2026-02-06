@@ -33,15 +33,12 @@ namespace ArmenRestauran.Pages
         {
             try
             {
-                // Загружаем столы
                 var tables = _db.GetTables();
                 CbTables.ItemsSource = tables;
 
-                // Загружаем меню
                 var menuItems = _db.GetMenu();
                 CbMenu.ItemsSource = menuItems;
 
-                // Скрываем кнопки управления
                 SetOrderButtonsVisibility(false);
             }
             catch (Exception ex)

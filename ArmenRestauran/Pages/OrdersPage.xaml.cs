@@ -50,7 +50,7 @@ namespace ArmenRestauran.Pages
                 {
                     _db.CancelAndCleanupOrder(order.OrderID, order.ReservationID);
                     MessageBox.Show("Заказ отменен.");
-                    Page_Loaded(null, null); // Перезагрузка списка
+                    Page_Loaded(null, null);
                 }
                 catch (Exception ex)
                 {

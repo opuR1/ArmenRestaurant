@@ -38,6 +38,6 @@ namespace ArmenRestauran.Services
         }
 
         
-        public bool IsAdmin() => CurrentUser?.RoleID == 1; // 1 - Админ
+        public bool IsAdmin() => CurrentUser?.RoleID == 1; 
     }
 }
