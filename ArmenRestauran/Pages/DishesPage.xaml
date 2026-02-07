@@ -16,11 +16,27 @@
 
                             <Grid Margin="15">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="0">
+                                <Border Grid.Column="0" 
+                                        Width="100" Height="100" 
+                                        CornerRadius="8" Background="#F5F5F5"
+                                        Margin="0,0,15,0">
+                                    <Image Source="{Binding ImageName}" 
+                                           Stretch="UniformToFill"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                        <Image.Clip>
+                                            <RectangleGeometry RadiusX="8" RadiusY="8" 
+                                                               Rect="0,0,100,100"/>
+                                        </Image.Clip>
+                                    </Image>
+                                </Border>
+
+                                <StackPanel Grid.Column="1">
                                     <TextBlock Text="{Binding ItemName}" FontSize="18" 
                                                FontWeight="Bold" Foreground="#8B0000"/>
                                     <TextBlock Text="{Binding Description}" Margin="0,5,20,0" 
@@ -28,7 +44,7 @@
                                                FontStyle="Italic"/>
                                 </StackPanel>
 
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
                                     <TextBlock Text="{Binding Price, StringFormat={}{0} ₽}" 
                                                FontSize="20" FontWeight="ExtraBold" 
                                                Foreground="#8B0000" HorizontalAlignment="Right"/>
@@ -36,7 +52,7 @@
                                     <Button Content="Добавить" Margin="0,10,0,0" Padding="15,5"
                                             Background="#8B0000" Foreground="Gold" 
                                             FontWeight="Bold" BorderThickness="0"
-                                            Tag="{Binding ItemID}" Click="BtnAddToCart_Click"/>
+                                            Click="BtnAddToCart_Click"/>
                                 </StackPanel>
                             </Grid>
                         </Border>

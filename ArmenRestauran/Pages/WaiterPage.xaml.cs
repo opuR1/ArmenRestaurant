@@ -13,7 +13,6 @@ namespace ArmenRestauran.Pages
     public partial class WaiterPage : Page
     {
         private DatabaseService _db = new DatabaseService();
-        private int _currentWaiterId;
         private int? _selectedTableId = null;
         private int? _selectedOrderId = null;
         private List<OrderItem> _orderItems = new List<OrderItem>();
@@ -21,7 +20,6 @@ namespace ArmenRestauran.Pages
         public WaiterPage()
         {
             InitializeComponent();
-            _currentWaiterId = AuthService.CurrentUser?.UserID ?? 0;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -125,7 +123,7 @@ namespace ArmenRestauran.Pages
             {
                 try
                 {
-                    int orderId = _db.CreateQuickOrder(dialog.SelectedClientId, _selectedTableId.Value, _currentWaiterId);
+                    int orderId = _db.CreateQuickOrder(dialog.SelectedClientId, _selectedTableId.Value);
                     MessageBox.Show($"Заказ #{orderId} создан");
 
                     LoadTableOrders(_selectedTableId.Value);
@@ -185,7 +183,30 @@ namespace ArmenRestauran.Pages
         private void BtnReady_Click(object sender, RoutedEventArgs e)
         {
             if (_selectedOrderId.HasValue)
+            {
+                DecreaseIngredientsForOrder(_selectedOrderId.Value);
+
                 UpdateOrderStatus("Готовится");
+            }
+        }
+        private void DecreaseIngredientsForOrder(int orderId)
+        {
+            try
+            {
+                var orderItems = _db.GetOrderItems(orderId);
+
+                foreach (var item in orderItems)
+                {
+                    _db.DecreaseStock(item.ItemID, item.Quantity);
+                }
+
+                MessageBox.Show("Ингредиенты списаны со склада");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка списания: {ex.Message}");
+                throw;
+            }
         }
 
         private void BtnServed_Click(object sender, RoutedEventArgs e)

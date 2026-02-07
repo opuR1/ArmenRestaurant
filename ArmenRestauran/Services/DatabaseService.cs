@@ -685,24 +685,22 @@ namespace ArmenRestauran.Services
             return db.Query<TableStatusDTO>(sql).ToList();
         }
 
-        public int CreateQuickOrder(int userId, int tableId, int? waiterId = null)
+        public int CreateQuickOrder(int userId, int tableId)
         {
             using var db = CreateConnection();
             db.Open();
             using var transaction = db.BeginTransaction();
-
             try
             {
                 const string sql = @"
-            INSERT INTO Orders (UserID, TableID, WaiterID, Status, CreatedAt) 
-            VALUES (@userId, @tableId, @waiterId, 'Заказан', @createdAt) 
-            RETURNING OrderID";
+                    INSERT INTO Orders (UserID, TableID, Status, CreatedAt) 
+                    VALUES (@userId, @tableId, 'Заказан', @createdAt) 
+                    RETURNING OrderID";
 
                 var orderId = db.ExecuteScalar<int>(sql, new
                 {
                     userId,
                     tableId,
-                    waiterId,
                     createdAt = DateTime.Now
                 }, transaction);
 
@@ -818,6 +816,39 @@ namespace ArmenRestauran.Services
             return db.Query<User>("SELECT * FROM Users WHERE RoleID = 4 ORDER BY Login").ToList();
         }
 
+        public void UpdateOrderStatusWithStockDecrease(int orderId, string status)
+        {
+            using var db = CreateConnection();
+            db.Open();
+            using var transaction = db.BeginTransaction();
 
+            try
+            {
+                if (status == "Готовится")
+                {
+                    var orderItems = db.Query<OrderItemDetailDTO>(
+                        "SELECT ItemID, Quantity FROM OrderItems WHERE OrderID = @orderId",
+                        new { orderId }, transaction).ToList();
+
+                    foreach (var item in orderItems)
+                    {
+                        db.Execute("CALL decrease_stock_by_recipe(@itemId, @quantity)",
+                            new { itemId = item.ItemID, quantity = item.Quantity },
+                            transaction);
+                    }
+                }
+
+                db.Execute(
+                    "UPDATE Orders SET Status = @status WHERE OrderID = @orderId",
+                    new { orderId, status }, transaction);
+
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+        }
     }
 }

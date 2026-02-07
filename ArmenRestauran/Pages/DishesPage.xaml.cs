@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.IO;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -21,6 +22,8 @@ namespace ArmenRestauran.Pages
         private int _categoryId;
         private DatabaseService _db = new DatabaseService();
 
+        private const string IMAGES_FOLDER = @"D:\Praktika2026-2\restaurant\ArmenRestauran\images\";
+
         public DishesPage(int categoryId)
         {
             InitializeComponent();
@@ -35,6 +38,19 @@ namespace ArmenRestauran.Pages
         private void RefreshData()
         {
             var dishes = _db.GetMenu().Where(d => d.CategoryID == _categoryId).ToList();
+
+            foreach (var dish in dishes)
+            {
+                if (!string.IsNullOrEmpty(dish.ImageName))
+                {
+                    dish.ImageName = IMAGES_FOLDER + dish.ImageName;
+                }
+                else
+                {
+                    dish.ImageName = IMAGES_FOLDER + "no-image.png";
+                }
+            }
+
             IcDishes.ItemsSource = dishes;
         }
 
